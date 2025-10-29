@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Report Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .upload-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            border: 3px dashed #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .upload-section:hover {
+            border-color: #764ba2;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .upload-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .upload-section h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .upload-section p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .text-input-section {
+            margin-top: 30px;
+        }
+
+        .text-input-section textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .text-input-section textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .disclaimer {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .disclaimer strong {
+            color: #856404;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .disclaimer p {
+            color: #856404;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .upload-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><span>🩺</span> Medical Report Assistant</h1>
+            <p>Your friendly guide to understanding medical reports and improving health naturally</p>
+        </div>
+
+        <div class="content">
+            <div class="upload-section" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">📋</div>
+                <h2>Upload Your Medical Report</h2>
+                <p>Click here to upload images or PDF files of your lab results</p>
+                <input type="file" id="fileInput" accept="image/*,.pdf" onchange="handleFileUpload(event)">
+                <button class="btn">Choose File</button>
+            </div>
+
+            <div class="text-input-section">
+                <h3 style="color: #333; margin-bottom: 15px; text-align: center;">Or Type Your Report Details</h3>
+                <textarea id="reportText" placeholder="Paste your lab values or describe your symptoms here...&#10;&#10;Example:&#10;- Hemoglobin: 10.5 g/dL&#10;- Blood Sugar: 145 mg/dL&#10;- TSH: 8.2 mIU/L"></textarea>
+                
+                <div class="action-buttons">
+                    <button class="btn" onclick="analyzeReport()">🔍 Analyze Report</button>
+                    <button class="btn" style="background: linear-gradient(135deg, #868686 0%, #5a5a5a 100%);" onclick="clearForm()">Clear</button>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Simple Explanations</h3>
+                    <p>Complex medical terms broken down into easy-to-understand language</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍⚕️</div>
+                    <h3>Specialist Guidance</h3>
+                    <p>Recommendations for the right doctor or specialist to consult</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🥗</div>
+                    <h3>Lifestyle Tips</h3>
+                    <p>Natural health recommendations including nutrition, exercise, and wellness practices</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💚</div>
+                    <h3>Holistic Support</h3>
+                    <p>Yoga, meditation, and stress-management techniques for better health</p>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                <strong>⚠️ Important Reminder</strong>
+                <p>This tool provides educational guidance and cannot replace professional medical advice. Always consult with a qualified healthcare provider for diagnosis and treatment decisions. In case of emergency, contact your doctor or emergency services immediately.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert('📄 File uploaded: ' + file.name + '\n\nThis is a demo interface. In a full application, the file would be analyzed and you would receive:\n\n✅ Report summary\n✅ Health insights\n✅ Specialist recommendations\n✅ Lifestyle guidance\n\nPlease share your report details with me in the chat to get a real analysis!');
+            }
+        }
+
+        function analyzeReport() {
+            const text = document.getElementById('reportText').value.trim();
+            if (text) {
+                alert('🔍 Analyzing your report...\n\nThis is a demo interface. To get a real analysis:\n\n1. Copy your report details\n2. Share them with me in the chat\n3. I\'ll provide:\n   ✅ Clear explanations\n   ✅ Specialist recommendations\n   ✅ Natural health guidance\n   ✅ Lifestyle tips\n\nI\'m ready to help you understand your health better!');
+            } else {
+                alert('⚠️ Please enter your report details in the text area first.');
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('reportText').value = '';
+            document.getElementById('fileInput').value = '';
+        }
+    </script>
+</body>
+</html>
